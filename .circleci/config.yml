@@ -1,0 +1,11 @@
+version: 2.1
+
+tf_pipeline: &tf_pipeline
+  docker:
+    - image: vault:latest
+  working_directory:  ~/tf_vault
+
+jobs:
+  pull_image:
+    <<: *tf_pipeline
+    
