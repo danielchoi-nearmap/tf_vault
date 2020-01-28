@@ -1,11 +1,16 @@
-version: 2.1
-
-tf_pipeline: &tf_pipeline
-  docker:
-    - image: vault:latest
-  working_directory:  ~/tf_vault
-
+version: 2
 jobs:
-  pull_image:
-    <<: *tf_pipeline
-    
+  build:
+    docker:
+      - image: nearmap/terraform-awscli:latest
+    working_directory:  ~/tf_vault
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            "41:cc:09:01:8c:6b:56:ec:ac:da:e6:bb:98:0c:5d:e9"
+      - checkout:
+          path: ~/src/github.com/nearmap/tf_vault
+      - run:
+        command: |
+          apt-get update
+          apt-get install -y git
